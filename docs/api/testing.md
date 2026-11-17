@@ -81,6 +81,26 @@ Boa provides various utilities to test vyper contracts and execute them in a for
         contract = boa.loads_partial(source).deploy()
     ```
 
+    The default `safe` block advances over time. Pin `block_identifier` when
+    tests need to start from the same state on each run. Use an Ethereum
+    mainnet RPC endpoint that can serve historical state at the selected block.
+    The [Chain.Love Ethereum API directory](https://eth.chain.love/toolbox/apis)
+    lists provider plans and their historical data coverage.
+
+    The example checks that Wrapped Ether has deployed bytecode at block 20,000,000.
+
+    ```python
+    import os
+
+    import boa
+
+    weth_address = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+    with boa.fork(
+        os.environ["ETH_RPC_URL"], block_identifier=20_000_000, cache_dir=None
+    ):
+        assert boa.env.get_code(weth_address), "Expected WETH bytecode on Ethereum mainnet"
+    ```
+
 
 ---
 
