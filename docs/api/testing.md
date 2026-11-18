@@ -87,7 +87,10 @@ Boa provides various utilities to test vyper contracts and execute them in a for
     The [Chain.Love Ethereum API directory](https://eth.chain.love/toolbox/apis)
     lists provider plans and their historical data coverage.
 
-    The example checks that Wrapped Ether has deployed bytecode at block 20,000,000.
+    The example checks whether the endpoint serves Wrapped Ether bytecode at
+    block 20,000,000. Choose a block height that suits your test. If your test
+    reads historical storage or makes contract calls, verify those specific
+    queries at your chosen height.
 
     ```python
     import os
